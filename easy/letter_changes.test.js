@@ -25,6 +25,12 @@ describe('letterChanges()', () => {
     test('handles non alphabetic characters', () => {
         expect(letterChanges('85451234_zabc%$!#4')).toBe('85451234_Abcd%$!#4');
     });
+
+    test('handles uppercase letters in input', () => {
+        expect(letterChanges('QUICK brown FOX jumped OVER')).toBe(
+            'RVJDL cspxO GPY kvnqfE PWFS'
+        );
+    });
 });
 
 describe('caesarCipher()', () => {
