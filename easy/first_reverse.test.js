@@ -7,6 +7,7 @@ describe('firstReverse()', () => {
         );
         expect(firstReverse('12 -345')).toBe('543- 21');
     });
+
     test('returns empty string when passed empty string', () => {
         expect(firstReverse('')).toBe('');
     });
