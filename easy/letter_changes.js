@@ -25,20 +25,25 @@ function letterChanges(str) {
         }
     }
 
-    let vowels = 'aeiou';
+    newString = capitalizeVowels(newString);
 
-    let finalString = '';
+    return newString;
+}
 
-    // Capitlize vowels
-    for (let i = 0; i < newString.length; i++) {
-        if (vowels.includes(newString[i])) {
-            finalString += newString[i].toUpperCase();
-        } else {
-            finalString += newString[i];
-        }
-    }
+/**
+ * Capitalizes the vowels in a string and returns a new string
+ * @param  {string} str
+ * @return {string}
+ */
+function capitalizeVowels(str) {
+    const VOWELS = 'aeiou';
 
-    return finalString;
+    const newString = str
+        .split('')
+        .map(char => (VOWELS.includes(char) ? char.toUpperCase() : char))
+        .join('');
+
+    return newString;
 }
 
 module.exports = letterChanges;
