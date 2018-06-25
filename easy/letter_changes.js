@@ -99,4 +99,11 @@ function capitalizeVowels(str) {
     return newString;
 }
 
-module.exports = letterChanges;
+module.exports = {
+    letterChanges,
+    caesarCipher,
+    isAlpha,
+    isUpperCase,
+    isLowerCase,
+    capitalizeVowels
+};
