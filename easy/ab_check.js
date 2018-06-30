@@ -11,20 +11,22 @@
  * @return {string} 'true' or 'false'
  */
 function abCheck(str) {
-    if (str.length < 5) {
+    let searchLetters = ['a', 'b'];
+    let letterSpace = 3;
+
+    if (str.length < letterSpace + 2) {
         return 'false';
     }
 
-    for (let i = 0; i < str.length - 4; i++) {
-        // look for a
-        if (str[i] === 'a') {
-            if (str[i + 4] === 'b') {
+    for (let i = 0; i < str.length - letterSpace - 1; i++) {
+        if (str[i] === searchLetters[0]) {
+            if (str[i + letterSpace + 1] === searchLetters[1]) {
                 return 'true';
             }
         }
 
-        if (str[i] === 'b') {
-            if (str[i + 4] === 'a') {
+        if (str[i] === searchLetters[1]) {
+            if (str[i + letterSpace + 1] === searchLetters[0]) {
                 return 'true';
             }
         }
