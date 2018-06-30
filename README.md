@@ -20,3 +20,30 @@ Secondly, I have used this project to get used to using several other supplement
 * JSDoc
 
 I am using the practice I gain here in order to transition into behavior-driven development.
+
+## How to run the unit tests
+
+1. Clone this repository
+
+```
+git clone https://github.com/bradhanson/coderbyte
+cd coderbyte
+```
+
+2. Install dependencies (just `jest`)
+
+```
+npm install
+```
+
+3. Run the tests!
+
+```
+npm test
+```
+
+4. Run test coverage report
+
+```
+npm run coverage
+```
