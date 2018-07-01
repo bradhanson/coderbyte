@@ -160,19 +160,6 @@ function tetrisMove(strArr) {
         return true;
     }
 
-    // Prints board/piece state for debugging purposes
-    function printState(piece, row, col) {
-        let copy = JSON.parse(JSON.stringify(board));
-        for (let r = 0; r < piece.length; r++) {
-            for (let c = 0; c < piece[0].length; c++) {
-                if (piece[r][c] === 1) {
-                    copy[row + r][col + c] = 2;
-                }
-            }
-        }
-        console.log(copy);
-    }
-
     // Returns new piece rotated counter-clockwise
     function rotateCCW(piece) {
         let pieceHeight = piece.length;
