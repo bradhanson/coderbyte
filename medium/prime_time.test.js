@@ -8,6 +8,12 @@ describe('primeTime()', () => {
         expect(primeTime(8171)).toBe('true');
     });
 
+    test('determines non prime number', () => {
+        expect(primeTime(4)).toBe('false');
+        expect(primeTime(6)).toBe('false');
+        expect(primeTime(100)).toBe('false');
+    });
+
     test('correctly handles input of 1', () => {
         expect(primeTime(1)).toBe('true');
     });
