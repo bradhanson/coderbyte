@@ -12,4 +12,12 @@ describe('abCheck()', () => {
     test('correctly returns "false" if "a" and "b" are not 3 characters apart', () => {
         expect(abCheck('lane _borrowed')).toBe('false');
     });
+
+    test('correctly handles short string', () => {
+        expect(abCheck('aabb')).toBe('false');
+    });
+
+    test('correctly handles empty string', () => {
+        expect(abCheck('')).toBe('false');
+    });
 });
