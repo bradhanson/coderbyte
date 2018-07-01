@@ -132,10 +132,10 @@ function tetrisMove(strArr) {
         for (let c = 0, max = piece[0].length; c < max; c++) {
             for (let r = piece.length - 1; r >= 0; r--) {
                 if (piece[r][c] === 1) {
-                    // Either at the bottom of the board OR
-                    // the board directly below us is a piece
+                    // Either at the bottom of the board
+                    // OR the space on the board directly below us is a piece
                     if (
-                        row + r + 1 >= piece.length ||
+                        row + r + 1 >= board.length ||
                         board[row + r + 1][col + c] === 1
                     ) {
                         return true;
