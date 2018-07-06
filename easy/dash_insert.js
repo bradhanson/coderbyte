@@ -11,11 +11,12 @@
 function dashInsert(str) {
     let newString = str[0] || '';
 
-    for (let i = 1; i < str.length; i++) {
+    for (let i = 1, lastNumberIsOdd = str[0] % 2 === 1; i < str.length; i++) {
         const numberIsOdd = str[i] % 2 === 1;
-        const lastNumberIsOdd = str[i - 1] % 2 === 1;
 
         newString += numberIsOdd && lastNumberIsOdd ? '-' + str[i] : str[i];
+
+        lastNumberIsOdd = numberIsOdd;
     }
     return newString;
 }
