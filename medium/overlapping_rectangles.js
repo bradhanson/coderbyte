@@ -17,7 +17,7 @@
  * @param  {array} strArr Array with one string element
  * @return {number} Number of times area of overlap can fit in first rectangle
  */
-function overlapingRectangles(strArr) {
+function overlappingRectangles(strArr) {
     // Convert coords from this format:
     // ['(0,0),(2,2),(2,0),(0,2),(1,0),(1,2),(6,0),(6,2)']
     // To this format:
@@ -115,4 +115,4 @@ Rectangle.prototype.area = function() {
     return this.width * this.height;
 };
 
-module.exports = overlapingRectangles;
+module.exports = overlappingRectangles;
