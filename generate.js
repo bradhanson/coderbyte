@@ -16,34 +16,58 @@ const path = require('path');
 
 const selfName = path.basename(process.argv[1]); // e.g., generate.js
 
-// Enforce proper command line usage with exactly 1 parameter
-if (process.argv.length !== 3) {
-    console.error('Usage: node %s <file_name>', selfName);
-    // https://nodejs.org/api/process.html#process_process_exit_code
-    // https://nodejs.org/api/process.html#process_exit_codes
-    // A bit better to set exit code and let program exit naturally
-    process.exit(9);
-}
+// Usage: node generate.js <file_name>
+enforceCommandLineUsage(); // or exit
 
 const fileName = path.basename(process.argv[2]); // e.g., ab_check
 const filePath = path.dirname(process.argv[2]);
 
-// Enforce snake_case
-let snakeCaseRegEx = /^[a-z]+[_a-z0-9]*[a-z0-9]+$/;
-if (!snakeCaseRegEx.test(fileName)) {
-    console.error(
-        'Usage: node %s <file_name>\n  <file_name>: must be in snake_case',
-        selfName
-    );
-    process.exit(9);
+enforceSnakeCase(); // or exit
+
+let fileNameCamelCase = snakeToCamelCase(fileName);
+
+let codeFileContent = getCodeFileContent();
+let testFileContent = getTestFileContent();
+
+let codeFileName = path.join(filePath, fileName) + '.js';
+let testFileName = path.join(filePath, fileName) + '.test.js';
+
+writeFile(codeFileName, codeFileContent);
+writeFile(testFileName, testFileContent);
+
+// Enforce proper command line usage with exactly 1 parameter
+function enforceCommandLineUsage() {
+    if (process.argv.length !== 3) {
+        console.error('Usage: node %s <file_name>', selfName);
+        // https://nodejs.org/api/process.html#process_process_exit_code
+        // https://nodejs.org/api/process.html#process_exit_codes
+        // A bit better to set exit code and let program exit naturally
+        process.exit(9);
+    }
 }
 
-let fileNameCamelCase = fileName.replace(/[_]([a-z])/g, (_, letter) =>
-    letter.toUpperCase()
-);
+// Enforce snake_case
+function enforceSnakeCase() {
+    let snakeCaseRegEx = /^[a-z]+[_a-z0-9]*[a-z0-9]+$/;
+    if (!snakeCaseRegEx.test(fileName)) {
+        console.error(
+            'Usage: node %s <file_name>\n  <file_name>: must be in snake_case',
+            selfName
+        );
+        process.exit(9);
+    }
+}
 
-// File templates
-let codeFileContent = `/**
+function snakeToCamelCase(str) {
+    str = String(str);
+    let camelCase = str.replace(/[_]([a-z])/g, (_, letter) =>
+        letter.toUpperCase()
+    );
+    return camelCase;
+}
+
+function getCodeFileContent() {
+    let content = `/**
  *
  * @param  {type} param
  * @return {type}
@@ -54,7 +78,11 @@ function ${fileNameCamelCase}(param) {
 
 module.exports = ${fileNameCamelCase};`;
 
-let testFileContent = `const ${fileNameCamelCase} = require('./${fileName}');
+    return content;
+}
+
+function getTestFileContent() {
+    let content = `const ${fileNameCamelCase} = require('./${fileName}');
 
 describe('${fileNameCamelCase}()', () => {
     test('', () => {
@@ -62,20 +90,14 @@ describe('${fileNameCamelCase}()', () => {
     });
 });`;
 
-// File write logic
-let codeFileName = path.join(filePath, fileName) + '.js';
-let testFileName = path.join(filePath, fileName) + '.test.js';
+    return content;
+}
 
-fs.writeFile(codeFileName, codeFileContent, error => {
-    if (error) {
-        throw error;
-    }
-    console.log('Generated %s', codeFileName);
-});
-
-fs.writeFile(testFileName, testFileContent, error => {
-    if (error) {
-        throw error;
-    }
-    console.log('Generated %s', testFileName);
-});
+function writeFile(fileName, fileContent) {
+    fs.writeFile(fileName, fileContent, error => {
+        if (error) {
+            throw error;
+        }
+        console.log('Generated %s', fileName);
+    });
+}
