@@ -32,8 +32,14 @@ let testFileContent = getTestFileContent();
 let codeFileName = path.join(filePath, fileName) + '.js';
 let testFileName = path.join(filePath, fileName) + '.test.js';
 
+checkForExistingFiles(codeFileName, testFileName); // or exit
+
 writeFile(codeFileName, codeFileContent);
 writeFile(testFileName, testFileContent);
+
+/**
+ * Functions below
+ */
 
 // Enforce proper command line usage with exactly 1 parameter
 function enforceCommandLineUsage() {
@@ -91,6 +97,19 @@ describe('${fileNameCamelCase}()', () => {
 });`;
 
     return content;
+}
+
+function checkForExistingFiles(...files) {
+    const existingFiles = files.filter(file => fs.existsSync(file));
+
+    if (existingFiles.length > 0) {
+        const fileString = existingFiles.map(str => '  ' + str).join('\n');
+        console.error(
+            'Files already exist:\n%s\n\nAborting... nothing modified.',
+            fileString
+        );
+        process.exit(9);
+    }
 }
 
 function writeFile(fileName, fileContent) {
