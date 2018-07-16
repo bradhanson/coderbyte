@@ -4,7 +4,7 @@ Coding and algorithm challenges completed on coderbyte.com
 
 > Coderbyte is a web application built to help you practice programming and improve your coding skills.
 
-I am currently ranked [#9](https://www.coderbyte.com/profile/bhanson) on the website out of 200,000+ users.
+I am currently ranked [#8](https://www.coderbyte.com/profile/bhanson) on the website out of 200,000+ users.
 
 ## Why does this repository exist?
 
