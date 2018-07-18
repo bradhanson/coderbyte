@@ -60,7 +60,7 @@ function fillMatrix(matrix, arrElements) {
     }
 
     arrElements.forEach((element, index) => {
-        const rowIndex = Math.floor(index / rows);
+        const rowIndex = Math.floor(index / columns);
         const colIndex = index % columns;
         matrix[rowIndex][colIndex] = element;
     });
