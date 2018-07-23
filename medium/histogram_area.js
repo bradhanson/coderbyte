@@ -20,32 +20,57 @@
 function histogramArea(arr) {
     const histogram = arr;
 
-    // Generate combos
-    const combos = [];
-    for (let max = Math.pow(2, histogram.length), i = 0; i < max; i++) {
-        let combo = i.toString(2);
-        // Pad left
-        while (combo.length < histogram.length) {
-            combo = '0' + combo;
-        }
+    // 1s must be adjacent with no 0s in between
+    const comboFilter = combo => /^[0]*[1]+[0]*$/.test(combo);
 
-        // 1s must be adjacent with no 0s in between
-        const goodComboRegEx = /^[0]*[1]+[0]*$/;
-        const goodCombo = goodComboRegEx.test(combo);
-        if (goodCombo) {
-            combos.push(combo);
-        }
-    }
+    const combos = ComboGenerator.generate(histogram.length, comboFilter);
 
     let maxArea = 0;
-    combos.forEach(combo => {
+
+    for (const combo of combos) {
         const area = histogramAreaOfCombo(histogram, combo);
         if (area > maxArea) {
             maxArea = area;
         }
-    });
+    }
 
     return maxArea;
+}
+
+class ComboGenerator {
+    /**
+     * Function is a predicate to test each combination generated.  Return true
+     * to keep the element, false otherwise.
+     * @callback filterCallback
+     * @param {string} combo String represented.  '0001', '0010', '0011', etc.
+     */
+
+    /**
+     * Returns generator of combinations as strings, '1' is on and '0' is off.
+     *
+     * `maxLength` is the number of binary digits to generate.  Examples:
+     *
+     * 4: 0000 ... 1111
+     * 5: 00000 ... 11111
+     * 6: 000000 ... 111111
+     * @param  {number} maxLength
+     * @param  {filterCallback} [filterCallback = () => true]
+     * @return {Generator}
+     */
+    static *generate(maxLength, filterCallback = () => true) {
+        const max = Math.pow(2, maxLength);
+        for (let i = 0; i < max; i++) {
+            let combo = i.toString(2);
+            // Pad left
+            while (combo.length < maxLength) {
+                combo = '0' + combo;
+            }
+
+            if (filterCallback(combo)) {
+                yield combo;
+            }
+        }
+    }
 }
 
 function histogramAreaOfCombo(histogram, combo) {
