@@ -10,4 +10,8 @@ describe('arrayMinJumps()', () => {
             arrayMinJumps([1, 3, 6, 8, 2, 7, 1, 2, 1, 2, 6, 1, 2, 1, 2])
         ).toBe(4);
     });
+
+    test('returns -1 if unable to reach end', () => {
+        expect(arrayMinJumps([1, 0, 0, 0, 3])).toBe(-1);
+    });
 });
