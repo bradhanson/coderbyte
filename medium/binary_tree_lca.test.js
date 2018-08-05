@@ -21,6 +21,14 @@ describe('binaryTreeLca()', () => {
         ).toBe(12);
     });
 
+    test('returns -1 for no common ancestor', () => {
+        expect(binaryTreeLca(['[#, 3, 8]', '3', '8'])).toBe(-1);
+    });
+
+    test('returns -1 for specifying a non-existent node', () => {
+        expect(binaryTreeLca(['[#, 3, 8]', '1', '8'])).toBe(-1);
+    });
+
     test('passes Coderbyte.com tests', () => {
         expect(
             binaryTreeLca([
