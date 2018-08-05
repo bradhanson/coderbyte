@@ -24,10 +24,6 @@ function arrayMinJumps(arr) {
     let combos = [];
     for (let max = Math.pow(2, arr.length), i = max / 2; i < max; i++) {
         let combo = i.toString(2);
-        // Pad combo
-        while (combo.length < arr.length) {
-            combo = '0' + combo;
-        }
         combos.push(combo);
     }
 
