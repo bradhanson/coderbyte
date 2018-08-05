@@ -33,7 +33,7 @@ function binaryTreeLca(strArr) {
 
     // Find LCA
     for (let i = 0; i < nodeAPath.length; i++) {
-        if (nodeBPath.includes(nodeAPath[i])) {
+        if (nodeBPath.includes(nodeAPath[i]) && nodeAPath[i] !== '#') {
             return Number(nodeAPath[i]);
         }
     }
