@@ -15,35 +15,24 @@
  * @return {string} or -1 on failure
  */
 function arithGeo(arr) {
-    if (arr.length === 1 || arr.length === 0) {
-        return -1;
-    }
-
-    let arithmetic = true;
-    // test arithmetic
-    for (let i = 2, diff = arr[1] - arr[0]; i < arr.length; i++) {
-        if (arr[i] - arr[i - 1] !== diff) {
-            arithmetic = false;
-        }
-    }
-
-    if (arithmetic) {
-        return 'Arithmetic';
-    }
-
-    let geometric = true;
-    // geometric
-    for (let i = 2, divisor = arr[1] / arr[0]; i < arr.length; i++) {
-        if (arr[i] / arr[i - 1] !== divisor) {
-            geometric = false;
-        }
-    }
-
-    if (geometric) {
-        return 'Geometric';
-    }
-
+  if (arr.length === 1 || arr.length === 0) {
     return -1;
+  }
+
+  //geo: a1, a1*r, a1*r**2, a1*r**3
+  //art: a1, a1+1, a1+2r, a1+3r
+
+  let r = Math.floor(arr[1] / arr[0]);
+
+  for (let i = 2; i < arr.length; i++) {
+    if (arr[i] === arr[0] * r * r) return "Geometric";
+    else return "Arithmetic";
+  }
+
+  return -1;
 }
+
+// let result = arithGeo([2, 4, 6, 8])
+// console.log(result)
 
 module.exports = arithGeo;
